@@ -3,6 +3,7 @@ import { Menu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getImagePath } from "@/App";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -57,8 +58,8 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
           >
             <Menu className={`transition-all duration-700 ${scrolled ? 'h-6 w-6' : 'h-8 w-8'}`} aria-hidden="true" />
           </Button>
-          <a 
-            href="/" 
+          <Link 
+            to="/" 
             className="flex items-center hover:opacity-90 transition-opacity"
             aria-label="Home"
           >
@@ -67,7 +68,7 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
               alt="Pixel"
               className={`w-auto transition-all duration-700 ${scrolled ? 'h-8' : 'h-12'}`}
             />
-          </a>
+          </Link>
         </div>
         <Button 
           variant="ghost" 

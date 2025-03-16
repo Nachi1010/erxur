@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
 const ThankYou = () => {
   const { currentLang } = useLanguage();
@@ -39,12 +40,12 @@ const ThankYou = () => {
             <h1 className="text-3xl font-bold mb-2 highlight-text">{t.title}</h1>
             <p className="text-xl mb-4">{t.subtitle}</p>
             <p className="description-text mb-8">{t.message}</p>
-            <a 
-              href="/"
+            <Link 
+              to="/"
               className="premium-button inline-block px-6 py-3 text-lg"
             >
               {t.homeLink}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
