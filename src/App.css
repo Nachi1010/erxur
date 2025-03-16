@@ -378,35 +378,3 @@ header a {
     0 0.75vw 1.5vw rgba(183, 133, 59, 0.4),
     0 0 3vw rgba(219, 166, 66, 0.5);
 }
-
-/* סגנונות נגישות */
-.high-contrast {
-  filter: contrast(1.5);
-  background-color: black !important;
-  color: white !important;
-}
-
-.high-contrast * {
-  background-color: black !important;
-  color: white !important;
-  border-color: white !important;
-}
-
-.high-contrast button,
-.high-contrast a {
-  background-color: #000 !important;
-  color: yellow !important;
-  border: 2px solid yellow !important;
-}
-
-.high-contrast img {
-  filter: contrast(1.5) brightness(0.9);
-}
-
-.high-contrast input, 
-.high-contrast textarea, 
-.high-contrast select {
-  background-color: #000 !important;
-  color: white !important;
-  border: 2px solid white !important;
-}

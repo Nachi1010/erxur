@@ -174,7 +174,6 @@ export const Registration = () => {
 
   return (
     <section 
-      id="registration-form"
       className="py-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-gray-800"
       dir={dir}
     >

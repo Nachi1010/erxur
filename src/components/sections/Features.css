@@ -140,4 +140,32 @@
     .dynamic-arrow {
         margin-bottom: 1rem;
     }
+    
+    /* אנימציית אקטיב במקום הובר במכשירים ניידים */
+    .rounded-lg.shadow-xl:active {
+        background-color: rgba(107, 70, 193, 0.3) !important;
+        border-color: rgba(107, 70, 193, 0.6) !important;
+        transform: scale(0.98);
+        transition: all 0.3s ease-in-out;
+    }
+    
+    /* החלפת האלמנטים בעת לחיצה פעילה */
+    .rounded-lg.shadow-xl:active .opacity-0 {
+        opacity: 1 !important;
+    }
+    
+    .rounded-lg.shadow-xl:active .opacity-100 {
+        opacity: 0 !important;
+    }
+    
+    /* אפקטים נוספים בלחיצה */
+    .rounded-lg.shadow-xl:active .transform.translate-y-4 {
+        transform: translateY(0) scale(1) !important;
+        filter: blur(0px) !important;
+    }
+    
+    .rounded-lg.shadow-xl:active .transform.translate-y-0 {
+        transform: translateY(8px) scale(1.05) !important;
+        filter: blur(4px) !important;
+    }
 }

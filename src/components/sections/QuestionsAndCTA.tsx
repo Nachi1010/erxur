@@ -43,7 +43,7 @@ export const QuestionsAndCTA = () => {
   const direction = getTextDirection();
 
   return (
-    <section className="py-16 pb-24 md:pb-32 bg-gray-50">
+    <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* הסרת הכותרות - לא מציגים אותן בכלל */}
