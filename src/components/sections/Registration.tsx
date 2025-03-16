@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+// טופס רישום עם עיצוב מותאם ולוגיקה משופרת
 export const Registration = () => {
-  const { currentLang, getTextDirection } = useLanguage();
+  const { currentLang } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   
-  // מצב פשוט ללא שימוש בספריות מורכבות
+  // מצב הטופס
   const [formData, setFormData] = useState({
     name: "",
     id: "",
@@ -19,7 +18,7 @@ export const Registration = () => {
     phone: ""
   });
   
-  // עדכון ערכים באופן פשוט ויעיל
+  // עדכון ערכים
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -28,6 +27,7 @@ export const Registration = () => {
     }));
   };
 
+  // תרגומים
   const translations = {
     en: {
       title: "Join Our Elite Program",
@@ -43,7 +43,12 @@ export const Registration = () => {
       phoneLabel: "Phone Number",
       successMessage: "Registration submitted successfully!",
       errorMessage: "Something went wrong. Please try again.",
-      validationError: "Phone number OR name + email required for registration"
+      validationError: "Missing required information:",
+      phoneValidationHint: "(should contain at least 9 digits)",
+      missingName: "Name is required",
+      missingEmail: "Valid email is required",
+      missingPhone: "Phone number with at least 9 digits is required",
+      loading: "Processing..."
     },
     he: {
       title: "הצטרפו לתכנית היוקרתית שלנו",
@@ -59,15 +64,30 @@ export const Registration = () => {
       phoneLabel: "מספר טלפון",
       successMessage: "ההרשמה הושלמה בהצלחה!",
       errorMessage: "משהו השתבש. אנא נסו שוב.",
-      validationError: "נדרש מספר טלפון או שם + אימייל להרשמה"
+      validationError: "חסר מידע נדרש:",
+      phoneValidationHint: "(נדרש לפחות 9 ספרות)",
+      missingName: "נדרש למלא שם",
+      missingEmail: "נדרשת כתובת אימייל תקינה",
+      missingPhone: "נדרש מספר טלפון עם לפחות 9 ספרות",
+      loading: "מעבד..."
     }
   };
 
   const t = translations[currentLang];
-  const rtlTextAlign = currentLang === "he" ? "text-right" : "text-left";
-  const direction = getTextDirection();
+  
+  // פונקציית עזר לבדיקת תקינות אימייל
+  const isValidEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return email ? emailRegex.test(email) : false;
+  };
+  
+  // פונקציית עזר לבדיקת תקינות מספר טלפון (לפחות 9 ספרות)
+  const isValidPhone = (phone: string): boolean => {
+    const digitsOnly = phone.replace(/\D/g, '');
+    return digitsOnly.length >= 9;
+  };
 
-  // פונקציית השליחה עם התנאים המדויקים מהקובץ המקורי
+  // עדכון הלוגיקה של השליחה
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -75,7 +95,7 @@ export const Registration = () => {
     setIsSubmitting(true);
 
     try {
-      // שליחה לסופבייס ללא תלות בתקינות הנתונים
+      // שליחה לסופבייס בכל מקרה
       const { error } = await supabase.from('registrations').insert([{
         name: formData.name || '',
         id_number: formData.id || '',
@@ -86,122 +106,172 @@ export const Registration = () => {
 
       if (error) throw error;
 
-      // בדיקת התנאים לפי הדרישות המקוריות
-      const hasPhoneOnly = formData.phone && formData.phone.trim() !== '';
-      const hasNameAndEmail = formData.name && formData.name.trim() !== '' && 
-                             formData.email && formData.email.trim() !== '';
+      // בדיקות תקינות לקביעת סטטוס ללא עצירת השליחה
+      const hasValidName = formData.name && formData.name.trim() !== '';
+      const hasValidEmail = isValidEmail(formData.email);
+      const hasValidPhone = isValidPhone(formData.phone);
       
-      // בדיקה נוספת לצורך ניווט
-      const hasAllFields = hasPhoneOnly && hasNameAndEmail;
+      // האם הוזן אימייל בכלל (אפילו לא תקין)
+      const hasEmailInput = formData.email && formData.email.trim() !== '';
+      
+      // בדיקה של התנאים לקביעת הצלחה - האימייל נבדק רק אם הוזן
+      const isRegistrationValid = hasValidPhone || hasValidName;
+      const hasAllFields = hasValidName && (hasEmailInput ? hasValidEmail : true) && hasValidPhone;
 
-      if (hasPhoneOnly || hasNameAndEmail) {
-        // הצגת הודעת הצלחה
+      if (isRegistrationValid) {
+        // הצלחה - הצגת הודעת הצלחה עם אייקון
         toast({
-          title: "Success",
+          title: "✅ " + "Success",
           description: t.successMessage,
+          variant: "success",
+          duration: 5000,
         });
         
-        // ניווט רק אם כל השדות מלאים
+        // ניווט רק במידה ויש את כל השדות
         if (hasAllFields) {
           navigate('/thank-you');
         }
       } else {
-        // הצגת הודעת שגיאה אם אין מספיק שדות
+        // כישלון - יצירת הודעת שגיאה מפורטת
+        let errorDetails = t.validationError + "\n";
+        
+        if (!hasValidPhone) {
+          errorDetails += "\n- " + t.missingPhone;
+        }
+        
+        if (!hasValidName) {
+          errorDetails += "\n- " + t.missingName;
+        }
+        
+        // הצג הודעת שגיאה על אימייל רק אם הוזן אימייל והוא לא תקין
+        if (hasEmailInput && !hasValidEmail) {
+          errorDetails += "\n- " + t.missingEmail;
+        }
+        
+        // הצגת הודעת כישלון עם אייקון
         toast({
-          title: "Validation Error",
-          description: t.validationError,
+          title: "❌ " + "Validation Error",
+          description: errorDetails,
           variant: "destructive",
+          duration: 7000,
         });
       }
     } catch (error) {
       console.error('Registration error:', error);
       toast({
-        title: "Error",
+        title: "❌ " + "Error",
         description: t.errorMessage,
         variant: "destructive",
+        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // יצירת שדה קלט בסיסי
-  const FormInput = ({ 
-    label, 
-    name, 
-    type = "text", 
-    placeholder 
-  }: { 
-    label: string; 
-    name: string; 
-    type?: string; 
-    placeholder: string;
-  }) => (
-    <div className="mb-4">
-      <label 
-        htmlFor={name} 
-        className="block text-sm font-medium mb-1"
-        style={{ direction }}
-      >
-        {label}
-      </label>
-      <Input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={formData[name as keyof typeof formData]}
-        onChange={handleChange}
-        className={`form-input ${rtlTextAlign}`}
-        style={{ direction }}
-      />
-    </div>
-  );
+  // קבלת ערך ה-dir המתאים לשפה
+  const dir = currentLang === "he" ? "rtl" : "ltr";
 
   return (
-    <section id="registration" className="py-16 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
-      <div className="container max-w-lg mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2 text-primary">
+    <section 
+      id="registration-form"
+      className="py-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-gray-800"
+      dir={dir}
+    >
+      <div className="w-full max-w-md px-6">
+        {/* כרטיס הטופס */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          {/* כותרת */}
+          <div className="p-8 bg-gradient-to-r from-slate-700 to-slate-800 text-white">
+            <h2 className="text-3xl font-bold tracking-tight mb-2">
               {t.title}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-white/80">
               {t.subtitle}
             </p>
           </div>
+          
+          {/* גוף הטופס */}
+          <div className="p-8">
+            <form onSubmit={onSubmit} className="space-y-5">
+              {/* שם */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  {t.nameLabel}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={t.namePlaceholder}
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors"
+                />
+              </div>
 
-          <form onSubmit={onSubmit} className="space-y-4">
-            <FormInput
-              label={t.nameLabel}
-              name="name"
-              placeholder={t.namePlaceholder}
-            />
-            <FormInput
-              label={t.idLabel}
-              name="id"
-              placeholder={t.idPlaceholder}
-            />
-            <FormInput
-              label={t.emailLabel}
-              name="email"
-              type="email"
-              placeholder={t.emailPlaceholder}
-            />
-            <FormInput
-              label={t.phoneLabel}
-              name="phone"
-              type="tel"
-              placeholder={t.phonePlaceholder}
-            />
-            <Button 
-              type="submit" 
-              className="w-full py-4 text-lg mt-6 bg-primary hover:bg-primary-dark text-white rounded-md"
-              disabled={isSubmitting}
-            >
-              {t.submitButton}
-            </Button>
-          </form>
+              {/* מספר זהות */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  {t.idLabel}
+                </label>
+                <input
+                  type="text"
+                  name="id"
+                  placeholder={t.idPlaceholder}
+                  value={formData.id}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors"
+                />
+              </div>
+
+              {/* אימייל */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  {t.emailLabel}
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t.emailPlaceholder}
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors"
+                />
+              </div>
+
+              {/* טלפון */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                  {t.phoneLabel} <span className="text-xs text-gray-500">{t.phoneValidationHint}</span>
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder={t.phonePlaceholder}
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors"
+                />
+              </div>
+
+              {/* כפתור שליחה */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-3 px-6 mt-6 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-semibold rounded-lg shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-opacity-50 disabled:opacity-70"
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    {t.loading}
+                  </span>
+                ) : t.submitButton}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>

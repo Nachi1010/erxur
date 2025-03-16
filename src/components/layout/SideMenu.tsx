@@ -2,9 +2,10 @@ const menuItems = [
   { title: "Home", titleHe: "דף הבית", href: "#" },
   { title: "About", titleHe: "אודות", href: "#about" },
   { title: "Course Details", titleHe: "פרטי הקורס", href: "#course-details" },
-  { title: "Registration", titleHe: "הרשמה", href: "#registration" },
+  { title: "Technical Details", titleHe: "פרטים טכניים", href: "#technical-details" },
+  { title: "Registration", titleHe: "הרשמה", href: "#registration-form" },
   { title: "FAQ", titleHe: "שאלות נפוצות", href: "#faq" },
-  { title: "Contact", titleHe: "צור קשר", href: "#contact" }
+  { title: "Contact", titleHe: "צור קשר", href: "#registration-form" }
 ] as const;
 
 interface SideMenuProps {
@@ -51,7 +52,7 @@ export const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
               <a href="#accessibility" className="block hover:text-white transition-colors">
                 {currentLang === "en" ? "Accessibility" : "נגישות"}
               </a>
-              <a href="#more-info" className="block hover:text-white transition-colors">
+              <a href="#registration-form" className="block hover:text-white transition-colors">
                 {currentLang === "en" ? "More Information" : "מידע נוסף"}
               </a>
             </div>

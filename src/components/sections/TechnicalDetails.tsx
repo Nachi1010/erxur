@@ -151,7 +151,7 @@ export const TechnicalDetails = () => {
   };
 
   return (
-    <section className="bg-white py-16">
+    <section id="technical-details" className="bg-white py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="bg-gray-100/90 backdrop-blur-sm rounded-xl shadow-sm">
@@ -179,12 +179,13 @@ export const TechnicalDetails = () => {
               </div>
               <div className="mt-8 border-t border-gray-200 pt-8">
                 <div className="flex justify-center">
-                  <button 
+                  <a 
+                    href="#registration-form"
                     className="px-6 py-3 bg-white text-primary border-2 border-primary rounded-full transition-all duration-300 shadow-sm hover:shadow-md active:bg-primary active:text-white md:hover:bg-primary md:hover:text-white"
                     style={{ direction }}
                   >
                     {currentLang === 'he' ? 'לפרטים נוספים' : 'More Details'}
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
