@@ -15,7 +15,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <Toaster />
-        <BrowserRouter>
+        <BrowserRouter basename="/erxur">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/thank-you" element={<ThankYou />} />
