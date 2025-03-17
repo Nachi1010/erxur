@@ -1,3 +1,6 @@
+/* ייבוא גופנים עם תמיכה טובה בעברית */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap');
+
 /* Base Styles */
 :root {
   --gradient-border: linear-gradient(to right, #000205, #1a365d);

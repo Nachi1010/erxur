@@ -11,9 +11,10 @@ interface StatItemProps {
 }
 
 const StatItem = ({ start, end, label, animate }: StatItemProps) => {
-  const { currentLang } = useLanguage();
+  const { currentLang, getTextDirection } = useLanguage();
   const [count, setCount] = useState(start);
   const isRTL = currentLang === 'he';
+  const direction = getTextDirection();
   
   const animateCounter = useCallback(() => {
     const duration = 2000;
@@ -50,7 +51,7 @@ const StatItem = ({ start, end, label, animate }: StatItemProps) => {
         <span className="text-2xl mt-1">+</span>
         <span>{count.toLocaleString()}</span>
       </div>
-      <div className="text-gray-600">
+      <div className="text-gray-600 text-sm md:text-base" style={{ direction, maxWidth: "95%", margin: "0 auto" }}>
         {label}
       </div>
     </div>
@@ -58,8 +59,9 @@ const StatItem = ({ start, end, label, animate }: StatItemProps) => {
 };
 
 export const Statistics = () => {
-  const { currentLang } = useLanguage();
+  const { currentLang, getTextDirection } = useLanguage();
   const isRTL = currentLang === 'he';
+  const direction = getTextDirection();
   
   const [statsRef, inView] = useInView({
     triggerOnce: false,

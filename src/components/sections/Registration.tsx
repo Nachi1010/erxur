@@ -6,7 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 // טופס רישום עם עיצוב מותאם ולוגיקה משופרת
 export const Registration = () => {
-  const { currentLang } = useLanguage();
+  const { currentLang, getTextDirection } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   
@@ -44,15 +44,15 @@ export const Registration = () => {
       successMessage: "Registration submitted successfully!",
       errorMessage: "Something went wrong. Please try again.",
       validationError: "Missing required information:",
-      phoneValidationHint: "(should contain at least 9 digits)",
+      phoneValidationHint: "(should contain at least 10 digits)",
       missingName: "Name is required",
       missingEmail: "Valid email is required",
-      missingPhone: "Phone number with at least 9 digits is required",
+      missingPhone: "Phone number with at least 10 digits is required",
       loading: "Processing..."
     },
     he: {
-      title: "הצטרפו לתכנית היוקרתית שלנו",
-      subtitle: "קחו את הצעד הראשון שלכם לקראת מומחיות ב-AI",
+      title: "הגישו מועמדות לתכנית הבלעדית שלנו",
+      subtitle: "קחו צעד קטן לקראת מומחיות ב-AI",
       namePlaceholder: "הזינו את שמכם המלא",
       idPlaceholder: "הזינו את מספר הזהות שלכם",
       emailPlaceholder: "your@email.com",
@@ -65,10 +65,10 @@ export const Registration = () => {
       successMessage: "ההרשמה הושלמה בהצלחה!",
       errorMessage: "משהו השתבש. אנא נסו שוב.",
       validationError: "חסר מידע נדרש:",
-      phoneValidationHint: "(נדרש לפחות 9 ספרות)",
+      phoneValidationHint: "(נדרש לפחות 10 ספרות)",
       missingName: "נדרש למלא שם",
       missingEmail: "נדרשת כתובת אימייל תקינה",
-      missingPhone: "נדרש מספר טלפון עם לפחות 9 ספרות",
+      missingPhone: "נדרש מספר טלפון עם 10 ספרות",
       loading: "מעבד..."
     }
   };
@@ -106,20 +106,23 @@ export const Registration = () => {
 
       if (error) throw error;
 
-      // בדיקות תקינות לקביעת סטטוס ללא עצירת השליחה
+      // בדיקות תקינות
       const hasValidName = formData.name && formData.name.trim() !== '';
       const hasValidEmail = isValidEmail(formData.email);
       const hasValidPhone = isValidPhone(formData.phone);
       
-      // האם הוזן אימייל בכלל (אפילו לא תקין)
-      const hasEmailInput = formData.email && formData.email.trim() !== '';
+      // בדיקת תנאים להצגת הודעת הצלחה:
+      // 1. שם + אימייל תקין
+      // 2. או מספר טלפון בן 9 ספרות
+      const nameAndEmailValid = hasValidName && hasValidEmail;
+      const phoneValid = hasValidPhone;
+      const showSuccessMessage = nameAndEmailValid || phoneValid;
       
-      // בדיקה של התנאים לקביעת הצלחה - האימייל נבדק רק אם הוזן
-      const isRegistrationValid = hasValidPhone || hasValidName;
-      const hasAllFields = hasValidName && (hasEmailInput ? hasValidEmail : true) && hasValidPhone;
+      // בדיקה אם כל הפרטים הנדרשים מולאו (לצורך מעבר לדף תודה)
+      const allFieldsValid = hasValidName && hasValidEmail && hasValidPhone;
 
-      if (isRegistrationValid) {
-        // הצלחה - הצגת הודעת הצלחה עם אייקון
+      if (showSuccessMessage) {
+        // הצגת הודעת הצלחה
         toast({
           title: "✅ " + "Success",
           description: t.successMessage,
@@ -127,28 +130,26 @@ export const Registration = () => {
           duration: 5000,
         });
         
-        // ניווט רק במידה ויש את כל השדות
-        if (hasAllFields) {
+        // ניווט לדף תודה רק אם כל הפרטים מולאו
+        if (allFieldsValid) {
           navigate('/thank-you');
         }
       } else {
-        // כישלון - יצירת הודעת שגיאה מפורטת
+        // הצגת הודעת שגיאה עם פירוט החסרים
         let errorDetails = t.validationError + "\n";
-        
-        if (!hasValidPhone) {
-          errorDetails += "\n- " + t.missingPhone;
-        }
         
         if (!hasValidName) {
           errorDetails += "\n- " + t.missingName;
         }
         
-        // הצג הודעת שגיאה על אימייל רק אם הוזן אימייל והוא לא תקין
-        if (hasEmailInput && !hasValidEmail) {
+        if (!hasValidEmail) {
           errorDetails += "\n- " + t.missingEmail;
         }
         
-        // הצגת הודעת כישלון עם אייקון
+        if (!hasValidPhone) {
+          errorDetails += "\n- " + t.missingPhone;
+        }
+        
         toast({
           title: "❌ " + "Validation Error",
           description: errorDetails,
@@ -169,13 +170,13 @@ export const Registration = () => {
     }
   };
 
-  // קבלת ערך ה-dir המתאים לשפה
-  const dir = currentLang === "he" ? "rtl" : "ltr";
+  // קבלת ערך ה-direction המתאים לשפה
+  const direction = getTextDirection();
 
   return (
     <section 
       className="py-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-gray-800"
-      dir={dir}
+      style={{ direction }}
     >
       <div className="w-full max-w-md px-6">
         {/* כרטיס הטופס */}

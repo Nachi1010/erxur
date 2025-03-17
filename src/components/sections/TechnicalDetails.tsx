@@ -128,7 +128,7 @@ export const TechnicalDetails = () => {
         },
         {
           icon: <HandMetal className="w-4 h-4" />,
-          title: "התנסות מעשית:",
+          title: "Hands-on:",
           description: "התנסות רציפה על פרוייקטים אמיתיים וחיים לאורך (כמעט) כל הקורס"
         },
         {
@@ -143,8 +143,8 @@ export const TechnicalDetails = () => {
         },
         {
           icon: <BookOpen className="w-4 h-4" />,
-          title: "שפת העברית:",
-          description: "כל ההרצאות בסניף תל אביב יתקיימו בעברית מלאה בלבד"
+          title: "שפת הלימודים:",
+          description: "כל ההרצאות וההדרכות בסניף תל אביב יתקיימו בעברית מלאה"
         }
       ]
     }

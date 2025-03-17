@@ -212,7 +212,7 @@ export const KeyAdvantages = () => {
       {
         icon: HybridLearningIcon,
         title: "למידה היברידית",
-        description: "איזון מושלם בין ידע תיאורטי ויישום מעשי"
+        description: "איזון מושלם בין ידע תיאורטי ויישום מעשי באמצעות פרקטיקות למידה חדשניות"
       },
       {
         icon: PedagogicalIcon,
@@ -222,17 +222,17 @@ export const KeyAdvantages = () => {
       {
         icon: GuaranteedJobIcon,
         title: "תעסוקה מובטחת",
-        description: "הצטרפו לצוות שלנו עם סיום מוצלח של התכנית"
+        description: "הצטרפו לצוותים שלנו מיד עם סיום מוצלח של התכנית"
       },
       {
         icon: Award,
         title: "תעודה יוקרתית",
-        description: "הסמכה מוכרת בתעשייה המוערכת על ידי חברות טכנולוגיה מובילות"
+        description: "הסמכה מוכרת בתעשייה המגובה על ידי עשרות חברות AI מובילות"
       },
       {
         icon: FileText,
         title: "מחקר עדכני",
-        description: "גישה להתקדמויות האחרונות בתחום הבינה המלאכותית"
+        description: "גישה חופשית לתכנים ולכלים המתקדמים ביותר בתחום הבינה המלאכותית"
       },
       {
         icon: FlexibleScheduleIcon,

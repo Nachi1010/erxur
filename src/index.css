@@ -1,9 +1,9 @@
+/* ייבוא גופנים עם תמיכה טובה בעברית */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* ייבוא גופנים עם תמיכה טובה בעברית */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap');
 
 /* Base Styles */
 :root {
@@ -135,8 +135,9 @@ main {
     padding-top: clamp(1.5rem, 4vw, 2.5rem);
     padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
   }
-selection {
-  background-color: rgba(59, 130, 246, 0.3); /* כחול שקוף */
-  color: inherit;
+
+  selection {
+    background-color: rgba(59, 130, 246, 0.3); /* כחול שקוף */
+    color: inherit;
   }
 }

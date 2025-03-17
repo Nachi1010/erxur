@@ -2,8 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { Menu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { getImagePath } from "@/App";
+import { getImagePath, scrollToElement } from "@/App";
 import { Link } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
+import Logo from "./Logo";
+import LangSwitch from "./LangSwitch";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -21,6 +24,12 @@ const translations = {
     languageLabel: "החלף לאנגלית"
   }
 } as const;
+
+// פונקציה לניהול גלילה חלקה למיקומים באתר
+const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+  e.preventDefault();
+  scrollToElement(targetId);
+};
 
 export const Header = ({ onMenuToggle }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
@@ -74,10 +83,10 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
           variant="ghost" 
           size="sm" 
           onClick={() => setCurrentLang(currentLang === "en" ? "he" : "en")}
-          className="text-high-contrast hover:bg-dark-light/20 transition-colors"
+          className="text-blue-200 hover:bg-dark-light/20 transition-colors font-normal"
           aria-label={t.languageLabel}
         >
-          <Globe className="h-5 w-5 mr-2" aria-hidden="true" />
+          <Globe className="h-5 w-5 mr-2 text-blue-300" aria-hidden="true" />
           {t.toggleLanguage}
         </Button>
       </div>

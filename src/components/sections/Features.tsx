@@ -110,7 +110,7 @@ const Feature = ({
   const arrowAlignment = getArrowAlignment();
 
   // המרווח בין החיצים יותאם לגודל החיצים עצמם
-  const arrowGap = "clamp(0.25rem, 1vw, 0.75rem)";
+  const arrowGap = "clamp(0.2rem, 0.8vw, 0.6rem)";
 
   return (
     <div 
@@ -124,7 +124,7 @@ const Feature = ({
             className={`text-3xl md:text-4xl lg:text-5xl font-bold feature-title text-royal-light ${textAlignment} leading-tight`}
             style={{ 
               direction: getTextDirection(),
-              fontSize: "clamp(2rem, 6.5vw, 4.5rem)",
+              fontSize: "clamp(1.8rem, 6vw, 4.2rem)",
               lineHeight: "1.2"
             }}
           >
@@ -137,9 +137,9 @@ const Feature = ({
               gap: arrowGap
             }}
           >
-            <span className="arrow-part" style={{ fontSize: "clamp(2rem, 5vw, 7rem)" }}>{arrowChar}</span>
-            <span className="arrow-part" style={{ fontSize: "clamp(2rem, 5vw, 7rem)" }}>{arrowChar}</span>
-            <span className="arrow-part" style={{ fontSize: "clamp(2rem, 5vw, 7rem)" }}>{arrowChar}</span>
+            <span className="arrow-part" style={{ fontSize: "clamp(1.8rem, 4.5vw, 6.5rem)" }}>{arrowChar}</span>
+            <span className="arrow-part" style={{ fontSize: "clamp(1.8rem, 4.5vw, 6.5rem)" }}>{arrowChar}</span>
+            <span className="arrow-part" style={{ fontSize: "clamp(1.8rem, 4.5vw, 6.5rem)" }}>{arrowChar}</span>
           </div>
         </div>
       </div>
@@ -171,7 +171,7 @@ const Feature = ({
           }`}
           // גובה דינמי במקום קבוע
           style={{ 
-            height: 'clamp(8.5rem, 23vw, 15rem)'
+            height: 'clamp(8rem, 20vw, 14rem)'
           }}
         >
           {/* Background layers - מתקן את הבאג של הכתם הלבן ע"י הגדרת z-index נאותים */}
@@ -199,11 +199,11 @@ const Feature = ({
               className={`${descriptionAlignment} w-full px-4 sm:px-5 md:px-6 transition-all font-bold text-white text-2xl md:text-3xl lg:text-4xl`}
               style={{ 
                 direction: getTextDirection(),
-                fontSize: 'clamp(1.25rem, calc(1rem + 2vw), 2.25rem)',
+                fontSize: 'clamp(1.2rem, calc(0.9rem + 1.8vw), 2rem)',
                 lineHeight: '1.3',
                 letterSpacing: '0.01em',
                 fontFamily: 'Assistant, sans-serif', // שימוש בפונט Assistant
-                padding: 'clamp(0.75rem, 2vw, 1.5rem)',
+                padding: 'clamp(0.7rem, 1.8vw, 1.4rem)',
                 margin: '0'
               }}
             >
@@ -225,7 +225,7 @@ const Feature = ({
                 }`}
                 style={{ 
                   direction: getTextDirection(), 
-                  padding: 'clamp(0.5rem, 1.5vw, 2rem)', // תיקון פדינג למסכים קטנים
+                  padding: 'clamp(0.5rem, 1.2vw, 1.8rem)', // תיקון פדינג למסכים קטנים
                   fontFamily: 'Assistant, sans-serif' // שימוש בפונט Assistant
                 }}
               >
@@ -253,13 +253,13 @@ export const Features = () => {
       {
         title: "Becoming a Real AI Developer",
         description: "Comprehensive training equivalent to 3 academic degrees + 2-3 years of experience",
-        expandedText: "The innovative and subsidized learning methodology was developed specifically for AI sciences by international teaching experts. This allows acquiring all the skills and disciplines required in artificial intelligence sciences during just one academic year - in a special format that combines practical experience in various active projects being worked on at CloseAI™.",
+        expandedText: "The innovative and subsidized learning methodology was developed specifically for AI sciences by international teaching experts. This allows acquiring all the skills and disciplines required in artificial intelligence sciences during just one academic year - in a special format that combines practical experience in various active projects being worked on at CloserAI.",
         arrowPosition: "right" as const
       },
       {
         title: "One-of-a-Kind Global Opportunity",
         description: "Upon course completion, all successful graduates will be integrated into our company and leading AI companies in Israel. Guaranteed.",
-        expandedText: "CloseAI™'s groundbreaking recruitment program—one of Israel's ten growing AI companies—was established precisely to meet industry needs. Thanks to a unique partnership with additional leading AI companies, it's now possible for the first time to skip three exhausting degrees and be accepted to leading AI positions in our company or one of our partners.",
+        expandedText: "CloserAI's groundbreaking recruitment program—one of Israel's ten growing AI companies—was established precisely to meet industry needs. Thanks to a unique partnership with additional leading AI companies, it's now possible for the first time to skip three exhausting degrees and be accepted to leading AI positions in our company or one of our partners.",
         arrowPosition: "left" as const
       }
     ],
@@ -273,13 +273,13 @@ export const Features = () => {
       {
         title: "להפוך למפתח AI אמיתי",
         description: "הכשרה מקיפה שבה ניתן לרכוש ידע וניסיון מקביל ל-3 תארים אקדמיים + 2-3 שנות ניסיון",
-        expandedText: "מתודולוגיית הלימודים החדשנית והמסובסדת, פותחה באופן ייעודי למדעי ה-AI על ידי מומחי הוראה בינלאומיים. כך ניתן לרכוש את כלל המיומנויות והדיסציפלינות הנדרשות במדעי הבינה המלאכותית, במהלך שנת לימודים אחת בלבד - במתכונת מיוחדת המשלבת התנסות מעשית במגוון פרוייקטים פעילים עליהם עובדים ב-CloseAI™",
+        expandedText: "מתודולוגיית הלימודים החדשנית והמסובסדת, פותחה באופן ייעודי למדעי ה-AI על ידי מומחי הוראה בינלאומיים. כך ניתן לרכוש את כלל המיומנויות והדיסציפלינות הנדרשות במדעי הבינה המלאכותית, במהלך שנת לימודים אחת בלבד - במתכונת מיוחדת המשלבת התנסות מעשית במגוון פרוייקטים פעילים עליהם עובדים ב-CloserAI",
         arrowPosition: "right" as const
       },
       {
         title: "הזדמנות יחידה מסוגה בעולם",
         description: "עם תום הקורס, כלל המסיימים בהצלחה ישולבו בחברתנו ובחברות ה-AI המובילות בישראל. בהתחייבות.",
-        expandedText: "PracticsAI, תכנית הגיוס פורצת הדרך של CloseAI™ -מעשרת חברות ה-AI הצומחות בישראל- הוקמה בדיוק על מנת לענות לצרכי התעשייה. בזכות שת\"פ ייחודי עם חברות AI נוספות, מהמובילות בתחום - ניתן לראשונה לוותר על לימוד של שלשה תארים מייגעים ולהתקבל למשרות AI מובילות בחברתנו, או באחת השותפות",
+        expandedText: "™PracticsAI, תכנית הגיוס פורצת הדרך של CloserAI -מעשרת חברות ה-AI הצומחות בישראל- הוקמה בדיוק על מנת לענות לצרכי התעשייה. בזכות שת\"פ ייחודי עם חברות AI נוספות, מהמובילות בתחום - ניתן לראשונה לוותר על לימוד של שלשה תארים מייגעים ולהתקבל למשרות AI מובילות בחברתנו, או באחת השותפות",
         arrowPosition: "left" as const
       }
     ]
