@@ -199,7 +199,7 @@ const Feature = ({
               className={`${descriptionAlignment} w-full px-4 sm:px-5 md:px-6 transition-all font-bold text-white text-2xl md:text-3xl lg:text-4xl`}
               style={{ 
                 direction: getTextDirection(),
-                fontSize: 'clamp(1.25rem, calc(1rem + 2vw), 2.25rem)',
+                fontSize: 'clamp(1.125rem, calc(0.9rem + 1.8vw), 2rem)',
                 lineHeight: '1.3',
                 letterSpacing: '0.01em',
                 fontFamily: 'Assistant, sans-serif', // שימוש בפונט Assistant
@@ -226,7 +226,9 @@ const Feature = ({
                 style={{ 
                   direction: getTextDirection(), 
                   padding: 'clamp(0.5rem, 1.5vw, 2rem)', // תיקון פדינג למסכים קטנים
-                  fontFamily: 'Assistant, sans-serif' // שימוש בפונט Assistant
+                  fontFamily: 'Assistant, sans-serif', // שימוש בפונט Assistant  })
+                  lineHeight: 'clamp(0.7, 1.3, 1.8)',
+                  fontWeight: 'normal', // Reduce boldness for English
                 }}
               >
                 {expandedText}
@@ -245,41 +247,41 @@ export const Features = () => {
   const features = {
     en: [
       {
-        title: "AI - High-Tech on Steroids",
+        title: "AI: High-Tech on Steroids",
         description: "Why there's no \"AI degree\" (or: could a leading AI company provide me with full training??)",
         expandedText: "The pioneering nature of AI and its unique complexities is just one of the factors why the average salary in this field is double that of the old high-tech world. Despite the skyrocketing demand for workers in AI, there is a significant shortage in the available workforce. The reason for this is also rooted in the unique complexity of the field.",
         arrowPosition: "left" as const
       },
       {
         title: "Becoming a Real AI Developer",
-        description: "Comprehensive training equivalent to 3 academic degrees + 2-3 years of experience",
-        expandedText: "The innovative and subsidized learning methodology was developed specifically for AI sciences by international teaching experts. This allows acquiring all the skills and disciplines required in artificial intelligence sciences during just one academic year - in a special format that combines practical experience in various active projects being worked on at CloseAI™.",
+        description: "PracticsAI™ - Comprehensive training equivalent to 3 academic degrees + 2-3 years of experience",
+        expandedText: "The innovative and subsidized learning methodology was developed specifically for AI sciences by international teaching experts. This allows acquiring all the skills and disciplines required in artificial intelligence sciences during just one academic year - in a special format that combines practical experience in various active projects being worked on at CloserAI.",
         arrowPosition: "right" as const
       },
       {
         title: "One-of-a-Kind Global Opportunity",
-        description: "Upon course completion, all successful graduates will be integrated into our company and leading AI companies in Israel. Guaranteed.",
-        expandedText: "CloseAI™'s groundbreaking recruitment program—one of Israel's ten growing AI companies—was established precisely to meet industry needs. Thanks to a unique partnership with additional leading AI companies, it's now possible for the first time to skip three exhausting degrees and be accepted to leading AI positions in our company or one of our partners.",
+        description: "all successful graduates will be integrated into our company and leading AI companies in Israel. Guaranteed.",
+        expandedText: "CloserAI's groundbreaking recruitment program—one of Israel's ten growing AI companies—was established precisely to meet industry needs. Thanks to a unique partnership with additional leading AI companies, it's now possible for the first time to skip three exhausting degrees and be accepted to leading AI positions in our company or one of our partners.",
         arrowPosition: "left" as const
       }
     ],
     he: [
       {
-        title: "AI - הייטק על סטרואידים",
+        title: "AI: הייטק על סטרואידים",
         description: "למה אין \"תואר ללימודי AI\" (או: יש מצב שחברת AI מובילה תעניק לי הכשרה מלאה??)",
         expandedText: "האופי החלוצי של תחום ה-AI ומורכבויותיו הייחודיות, הוא רק אחד הגורמים לכך שממוצע השכר בתחום הינו כפול מהממוצע בעולמות ההייטק הישן. למרות הביקוש המסחרר לעובדים בתחום ה-AI, מורגש חסר משמעותי בהיצע כח האדם הזמין. הסיבה לכך נעוצה גם היא במורכבות הייחודית של התחום",
         arrowPosition: "left" as const
       },
       {
         title: "להפוך למפתח AI אמיתי",
-        description: "הכשרה מקיפה שבה נרכוש ידע וניסיון, מקביל ל-3 תארים אקדמיים + 2-3 שנות ניסיון",
-        expandedText: "מתודולוגיית הלימודים החדשנית והמסובסדת, פותחה באופן ייעודי למדעי ה-AI על ידי מומחי הוראה בינלאומיים. כך ניתן לרכוש את כלל המיומנויות והדיסציפלינות הנדרשות במדעי הבינה המלאכותית, במהלך שנת לימודים אחת בלבד - במתכונת מיוחדת המשלבת התנסות מעשית במגוון פרוייקטים פעילים עליהם עובדים ב-CloseAI™",
+        description: "™PracticsAI - הכשרה מקיפה שבה נרכוש ניסיון המקביל ל-3 תארים אקדמיים + 2-3 שנות ניסיון",
+        expandedText: "מתודולוגיית הלימודים החדשנית והמסובסדת, פותחה באופן ייעודי למדעי ה-AI על ידי מומחי הוראה בינלאומיים. כך ניתן לרכוש את כלל המיומנויות והדיסציפלינות הנדרשות במדעי הבינה המלאכותית, במהלך שנת לימודים אחת בלבד - במתכונת מיוחדת המשלבת התנסות מעשית במגוון פרוייקטים פעילים עליהם עובדים ב-CloserAI",
         arrowPosition: "right" as const
       },
       {
         title: "הזדמנות יחידה מסוגה בעולם",
-        description: "עם תום הקורס, כלל המסיימים בהצלחה ישולבו בחברתנו ובחברות ה-AI המובילות בישראל. בהתחייבות.",
-        expandedText: "תכנית הגיוס פורצת הדרך של CloseAI™ -מעשרת חברות ה-AI הצומחות בישראל- הוקמה בדיוק על מנת לענות לצרכי התעשייה. בזכות שת\"פ ייחודי עם חברות AI נוספות, מהמובילות בתחום - ניתן לראשונה לוותר על לימוד של שלשה תארים מייגעים ולהתקבל למשרות AI מובילות בחברתנו, או באחת השותפות",
+        description: "כלל המסיימים בהצלחה ישולבו מיידית בחברתנו ובחברות ה-AI המובילות בישראל. בהתחייבות.",
+        expandedText: "תכנית הגיוס פורצת הדרך של CloserAI -מעשרת חברות ה-AI הצומחות בישראל- הוקמה בדיוק על מנת לענות לצרכי התעשייה. בזכות שת\"פ ייחודי עם חברות AI נוספות, מהמובילות בתחום - ניתן לראשונה לוותר על לימוד של שלשה תארים מייגעים ולהתקבל למשרות AI מובילות בחברתנו, או באחת השותפות",
         arrowPosition: "left" as const
       }
     ]

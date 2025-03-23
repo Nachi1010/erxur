@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // טופס רישום עם עיצוב מותאם ולוגיקה משופרת
 export const Registration = () => {
-  const { currentLang } = useLanguage();
+  const { currentLang, getTextDirection } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   
@@ -30,34 +32,33 @@ export const Registration = () => {
   // תרגומים
   const translations = {
     en: {
-      title: "Join Our Elite Program",
-      subtitle: "Take your first step towards AI mastery",
+      title: "Apply for Our Unique Recruitment Program",
+      subtitle: "Secure a coveted position and expertise in AI",
       namePlaceholder: "Enter your full name",
       idPlaceholder: "Enter your ID number",
       emailPlaceholder: "you@example.com",
       phonePlaceholder: "Enter your phone number",
-      submitButton: "Begin Your Journey",
+      submitButton: "Join our journey",
       nameLabel: "Full Name",
       idLabel: "ID Number",
       emailLabel: "Email Address",
       phoneLabel: "Phone Number",
-      successMessage: "Registration submitted successfully!",
+      successMessage: "Registration completed successfully!",
       errorMessage: "Something went wrong. Please try again.",
       validationError: "Missing required information:",
-      phoneValidationHint: "(should contain at least 9 digits)",
       missingName: "Name is required",
       missingEmail: "Valid email is required",
-      missingPhone: "Phone number with at least 9 digits is required",
+      missingPhone: "Phone number with at least 10 digits is required",
       loading: "Processing..."
     },
     he: {
-      title: "הצטרפו לתכנית היוקרתית שלנו",
-      subtitle: "קחו את הצעד הראשון שלכם לקראת מומחיות ב-AI",
-      namePlaceholder: "הזינו את שמכם המלא",
-      idPlaceholder: "הזינו את מספר הזהות שלכם",
+      title: "הגישו מועמדות לתכנית הגיוס הייחודית שלנו",
+      subtitle: "רוכשים משרה נחשקת ומומחיות ב-AI",
+      namePlaceholder: "שם מלא",
+      idPlaceholder: "0-0000000-0",
       emailPlaceholder: "your@email.com",
-      phonePlaceholder: "הזינו את מספר הטלפון שלכם",
-      submitButton: "התחילו את המסע שלכם",
+      phonePlaceholder: "050-000-0000",
+      submitButton: "הצטרפו אלינו",
       nameLabel: "שם מלא",
       idLabel: "מספר זהות",
       emailLabel: "כתובת אימייל",
@@ -65,10 +66,9 @@ export const Registration = () => {
       successMessage: "ההרשמה הושלמה בהצלחה!",
       errorMessage: "משהו השתבש. אנא נסו שוב.",
       validationError: "חסר מידע נדרש:",
-      phoneValidationHint: "(נדרש לפחות 9 ספרות)",
       missingName: "נדרש למלא שם",
       missingEmail: "נדרשת כתובת אימייל תקינה",
-      missingPhone: "נדרש מספר טלפון עם לפחות 9 ספרות",
+      missingPhone: "נדרש מספר טלפון עם 10 ספרות",
       loading: "מעבד..."
     }
   };
@@ -106,20 +106,23 @@ export const Registration = () => {
 
       if (error) throw error;
 
-      // בדיקות תקינות לקביעת סטטוס ללא עצירת השליחה
+      // בדיקות תקינות
       const hasValidName = formData.name && formData.name.trim() !== '';
       const hasValidEmail = isValidEmail(formData.email);
       const hasValidPhone = isValidPhone(formData.phone);
       
-      // האם הוזן אימייל בכלל (אפילו לא תקין)
-      const hasEmailInput = formData.email && formData.email.trim() !== '';
+      // בדיקת תנאים להצגת הודעת הצלחה:
+      // 1. שם + אימייל תקין
+      // 2. או מספר טלפון בן 9 ספרות
+      const nameAndEmailValid = hasValidName && hasValidEmail;
+      const phoneValid = hasValidPhone;
+      const showSuccessMessage = nameAndEmailValid || phoneValid;
       
-      // בדיקה של התנאים לקביעת הצלחה - האימייל נבדק רק אם הוזן
-      const isRegistrationValid = hasValidPhone || hasValidName;
-      const hasAllFields = hasValidName && (hasEmailInput ? hasValidEmail : true) && hasValidPhone;
+      // בדיקה אם כל הפרטים הנדרשים מולאו (לצורך מעבר לדף תודה)
+      const allFieldsValid = hasValidName && hasValidEmail && hasValidPhone;
 
-      if (isRegistrationValid) {
-        // הצלחה - הצגת הודעת הצלחה עם אייקון
+      if (showSuccessMessage) {
+        // הצגת הודעת הצלחה
         toast({
           title: "✅ " + "Success",
           description: t.successMessage,
@@ -127,28 +130,26 @@ export const Registration = () => {
           duration: 5000,
         });
         
-        // ניווט רק במידה ויש את כל השדות
-        if (hasAllFields) {
+        // ניווט לדף תודה רק אם כל הפרטים מולאו
+        if (allFieldsValid) {
           navigate('/thank-you');
         }
       } else {
-        // כישלון - יצירת הודעת שגיאה מפורטת
+        // הצגת הודעת שגיאה עם פירוט החסרים
         let errorDetails = t.validationError + "\n";
-        
-        if (!hasValidPhone) {
-          errorDetails += "\n- " + t.missingPhone;
-        }
         
         if (!hasValidName) {
           errorDetails += "\n- " + t.missingName;
         }
         
-        // הצג הודעת שגיאה על אימייל רק אם הוזן אימייל והוא לא תקין
-        if (hasEmailInput && !hasValidEmail) {
+        if (!hasValidEmail) {
           errorDetails += "\n- " + t.missingEmail;
         }
         
-        // הצגת הודעת כישלון עם אייקון
+        if (!hasValidPhone) {
+          errorDetails += "\n- " + t.missingPhone;
+        }
+        
         toast({
           title: "❌ " + "Validation Error",
           description: errorDetails,
@@ -169,14 +170,14 @@ export const Registration = () => {
     }
   };
 
-  // קבלת ערך ה-dir המתאים לשפה
-  const dir = currentLang === "he" ? "rtl" : "ltr";
+  // קבלת ערך ה-direction המתאים לשפה
+  const direction = getTextDirection();
 
   return (
     <section 
       id="registration-form"
       className="py-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-gray-800"
-      dir={dir}
+      style={{ direction }}
     >
       <div className="w-full max-w-md px-6">
         {/* כרטיס הטופס */}
@@ -242,13 +243,14 @@ export const Registration = () => {
               {/* טלפון */}
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                  {t.phoneLabel} <span className="text-xs text-gray-500">{t.phoneValidationHint}</span>
+                  {t.phoneLabel}
                 </label>
                 <input
                   type="tel"
                   name="phone"
                   placeholder={t.phonePlaceholder}
                   value={formData.phone}
+                  style={{ direction }}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors"
                 />

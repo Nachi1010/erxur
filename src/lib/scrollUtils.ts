@@ -3,7 +3,23 @@
  * Utility function for smooth scrolling between page elements
  */
 
-export const smoothScrollTo = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+export const smoothScrollTo = (
+  eOrId: React.MouseEvent<HTMLAnchorElement> | string
+): void => {
+  if (typeof eOrId === 'string') {
+    // If given an ID directly
+    const element = document.getElementById(eOrId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    return;
+  }
+
+  // Original behavior with event object
+  const e = eOrId;
   e.preventDefault();
   const href = e.currentTarget.getAttribute("href");
   
@@ -19,4 +35,4 @@ export const smoothScrollTo = (e: React.MouseEvent<HTMLAnchorElement>): void => 
       });
     }
   }
-}; 
+};

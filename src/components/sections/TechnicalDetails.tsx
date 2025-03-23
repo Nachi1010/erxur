@@ -1,6 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { MapPin, Clock, Award, School, Briefcase, BookOpen, Users, HandMetal } from "lucide-react";
+import { MapPin, Clock, Award, School, Briefcase, BookOpen, Users, HandMetal, Code } from "lucide-react";
 import React from "react";
+import { smoothScrollTo } from "@/lib/scrollUtils";
 
 interface TechnicalDetailProps {
   icon: React.ReactNode;
@@ -43,38 +44,38 @@ export const TechnicalDetails = () => {
       details: [
         {
           icon: <MapPin className="w-4 h-4" />,
-          title: "Central Location:",
-          description: "Studies will take place at closerAI's office campus in Palo Alto and Tel Aviv"
+          title: "Location:",
+          description: "Classes will be held at CloserAI's campuses in Palo Alto and Tel Aviv city centers"
         },
         {
           icon: <Clock className="w-4 h-4" />,
           title: "Course Duration:",
-          description: "One intensive year, 5 days a week, approximately 40 hours weekly"
+          description: "One intensive year, 5 days per week, approximately 40 hours weekly"
         },
         {
           icon: <Award className="w-4 h-4" />,
           title: "Certification:",
-          description: "Official certification recognized in the industry and backed by 35 leading AI companies"
+          description: "Official industry-recognized certification backed by 35 leading AI companies"
         },
         {
           icon: <School className="w-4 h-4" />,
-          title: "Full Academic Resources:",
-          description: "Top-tier lecturers and access to the most advanced tools in the market"
+          title: "Academic Resources:",
+          description: "Top-tier faculty and access to the most advanced tools in the market"
         },
         {
           icon: <Briefcase className="w-4 h-4" />,
           title: "Job Placement:",
-          description: "100% guaranteed employment for all successful course graduates. Guaranteed"
+          description: "100% employment guarantee for all successful program graduates. Guaranteed."
         },
         {
           icon: <BookOpen className="w-4 h-4" />,
           title: "Curriculum:",
-          description: "Dynamic syllabus adapted to all the latest innovations in AI worlds"
+          description: "Dynamic syllabus adapted to all the latest innovations in AI"
         },
         {
           icon: <HandMetal className="w-4 h-4" />,
           title: "Hands-on Experience:",
-          description: "Continuous experience on real and live projects throughout (almost) the entire course"
+          description: "Continuous experience with real and live projects throughout (almost) the entire course"
         },
         {
           icon: <Users className="w-4 h-4" />,
@@ -84,12 +85,12 @@ export const TechnicalDetails = () => {
         {
           icon: <School className="w-4 h-4" />,
           title: "Professional Guidance:",
-          description: "Experienced mentors and leaders from our senior staff"
+          description: "Experienced mentors and leaders from our senior staff will guide each team"
         },
         {
           icon: <BookOpen className="w-4 h-4" />,
-          title: "Hebrew Language:",
-          description: "All lectures in Tel Aviv branch will be conducted in Hebrew only"
+          title: "Language:",
+          description: "All lectures and training in Tel Aviv branch will be conducted in Hebrew only"
         }
       ]
     },
@@ -143,8 +144,8 @@ export const TechnicalDetails = () => {
         },
         {
           icon: <BookOpen className="w-4 h-4" />,
-          title: "שפת העברית:",
-          description: "כל ההרצאות בסניף תל אביב יתקיימו בעברית מלאה בלבד"
+          title: "שפה:",
+          description: "כל ההרצאות וההדרכות בסניף תל אביב יועברו בעברית מלאה"
         }
       ]
     }
@@ -179,13 +180,13 @@ export const TechnicalDetails = () => {
               </div>
               <div className="mt-8 border-t border-gray-200 pt-8">
                 <div className="flex justify-center">
-                  <a 
-                    href="#registration-form"
+                  <button 
+                    onClick={() => smoothScrollTo('registration-form')}
                     className="px-6 py-3 bg-white text-primary border-2 border-primary rounded-full transition-all duration-300 shadow-sm hover:shadow-md active:bg-primary active:text-white md:hover:bg-primary md:hover:text-white"
                     style={{ direction }}
                   >
                     {currentLang === 'he' ? 'לפרטים נוספים' : 'More Details'}
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -194,4 +195,4 @@ export const TechnicalDetails = () => {
       </div>
     </section>
   );
-}; 
+};

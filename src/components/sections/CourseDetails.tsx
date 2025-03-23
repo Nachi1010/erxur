@@ -79,7 +79,7 @@ export const CourseDetails = () => {
   
   const translations = {
     en: {
-      title: "What we are study",
+      title: "What Will You Learn?",
       features: [
         {
           icon: <Sparkle className="w-full h-full" />,

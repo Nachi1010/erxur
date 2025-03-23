@@ -12,13 +12,15 @@ interface HeaderProps {
 const translations = {
   en: {
     toggleLanguage: "עברית",
-    menuLabel: "Toggle navigation menu",
-    languageLabel: "Switch to Hebrew"
+    menuLabel: "Open Navigation Menu",
+    languageLabel: "Switch to Hebrew",
+    homeAriaLabel: "PracticsAI™ Home"
   },
   he: {
     toggleLanguage: "English",
-    menuLabel: "פתח/סגור תפריט",
-    languageLabel: "החלף לאנגלית"
+    menuLabel: "פתח תפריט ניווט",
+    languageLabel: "החלף לאנגלית",
+    homeAriaLabel: "PracticsAI™ דף הבית"
   }
 } as const;
 
@@ -61,11 +63,11 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
           <Link 
             to="/" 
             className="flex items-center hover:opacity-90 transition-opacity"
-            aria-label="Home"
+            aria-label={t.homeAriaLabel}
           >
             <img 
               src={getImagePath("/images/2.png")}
-              alt="Pixel"
+              alt="PracticsAI™"
               className={`w-auto transition-all duration-700 ${scrolled ? 'h-8' : 'h-12'}`}
             />
           </Link>

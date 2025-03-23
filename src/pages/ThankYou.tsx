@@ -13,8 +13,8 @@ const ThankYou = () => {
   const texts = {
     en: {
       title: "Thank You for Registering!",
-      subtitle: "We're excited to have you on board.",
-      message: "Our team will contact you shortly with more information about your AI journey.",
+      subtitle: "We're excited to welcome you.",
+      message: "Our expert team will contact you shortly with more information about your journey in the world of artificial intelligence.",
       homeLink: "Return to Home"
     },
     he: {

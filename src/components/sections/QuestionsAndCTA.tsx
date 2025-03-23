@@ -11,15 +11,15 @@ export const QuestionsAndCTA = () => {
       title: "Is This Program Right For You?",
       subtitle: "Check if you match our candidate profile:",
       questions: [
-        "<span class='font-bold'>Do</span> you have high computational or analytical abilities?",
-        "<span class='font-bold'>Are</span> you a bachelor's degree graduate or have rich experience in unique domain knowledge?",
-        "<span class='font-bold'>Are</span> you someone who can think outside the box?",
-        "<span class='font-bold'>Are</span> you a graduate of advanced mathematics studies?",
-        "<span class='font-bold'>Are</span> you eager to break through barriers and glass ceilings?",
-        "<span class='font-bold'>Do</span> you have a unique added value that could benefit us?",
-        "<span class='font-bold'>Can</span> you integrate different knowledge domains, think independently and innovatively, and understand concepts deeply?"
+        "<span class='font-bold'>Do you</span> have high-level computational or analytical abilities?",
+        "<span class='font-bold'>Do you</span> have a bachelor's degree or rich experience in unique domain knowledge?",
+        "<span class='font-bold'>Can you</span> think outside the box and expand your horizons?",
+        "<span class='font-bold'>Have you</span> completed advanced mathematics studies?",
+        "<span class='font-bold'>Are you</span> eager to break through barriers and glass ceilings?",
+        "<span class='font-bold'>Do you</span> have unique added value that could benefit us?",
+        "<span class='font-bold'>Can you</span> combine different fields of knowledge, think independently and innovatively, understand concepts deeply and not just hear them?"
       ],
-      finalNote: "If you checked one or more of these questions - your place might be with us. Register here and now, we'll check your suitability for the program, and maybe you'll get to receive the world's only ticket to the most sought-after profession in the 21st century.",
+      finalNote: "If you checked any of these questions - you might belong with us. Register here and now, we'll check your compatibility with PracticsAI™, and you might receive the world's only entry ticket to the most sought-after profession of the 21st century",
       ctaButton: "Register Now"
     },
     he: {
@@ -80,16 +80,18 @@ export const QuestionsAndCTA = () => {
             
             {/* כפתור הרשמה - חץ עגול */}
             <div className="mt-6 flex justify-center">
-              <a 
-                href="#registration-form" 
+              <button 
+                onClick={() => smoothScrollTo('registration-form')}
                 className="inline-flex items-center justify-center w-14 h-14 bg-white text-primary rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 animate-bounce"
-                aria-label="Register now"
-                onClick={smoothScrollTo}
+                aria-label={currentLang === 'he' ? 'הירשם עכשיו' : 'Register now'}
               >
                 <ChevronUp size={24} />
-              </a>
+              </button>
             </div>
           </div>
+          
+          {/* Empty padding div to prevent content from being hidden when scrolling to max */}
+          <div className="h-24"></div>
         </div>
       </div>
     </section>

@@ -68,26 +68,28 @@ export const AccessibilityPanel = () => {
 
   const translations = {
     en: {
-      title: 'Accessibility Options',
-      fontSize: 'Font Size',
-      increaseFont: 'Increase',
-      decreaseFont: 'Decrease',
-      resetFont: 'Reset',
-      contrast: 'High Contrast',
-      on: 'On',
-      off: 'Off',
-      close: 'Close'
+      title: 'PracticsAI™ Accessibility Options',
+      fontSize: 'Text Size',
+      increaseFont: 'Increase Size',
+      decreaseFont: 'Decrease Size',
+      resetFont: 'Reset Size',
+      contrast: 'High Contrast Mode',
+      on: 'Enabled',
+      off: 'Disabled',
+      close: 'Close Panel',
+      description: 'Adjust the display settings to improve readability and visibility'
     },
     he: {
-      title: 'אפשרויות נגישות',
+      title: 'אפשרויות נגישות PracticsAI™',
       fontSize: 'גודל טקסט',
-      increaseFont: 'הגדל',
-      decreaseFont: 'הקטן',
-      resetFont: 'איפוס',
-      contrast: 'ניגודיות גבוהה',
-      on: 'פעיל',
+      increaseFont: 'הגדל טקסט',
+      decreaseFont: 'הקטן טקסט',
+      resetFont: 'איפוס גודל',
+      contrast: 'מצב ניגודיות גבוהה',
+      on: 'מופעל',
       off: 'כבוי',
-      close: 'סגור'
+      close: 'סגור',
+      description: 'התאם את הגדרות התצוגה לשיפור הקריאות והנראות'
     }
   };
 
@@ -167,4 +169,4 @@ export const AccessibilityPanel = () => {
       </div>
     </div>
   );
-}; 
+};

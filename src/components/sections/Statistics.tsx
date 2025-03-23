@@ -11,7 +11,7 @@ interface StatItemProps {
 }
 
 const StatItem = ({ start, end, label, animate }: StatItemProps) => {
-  const { currentLang } = useLanguage();
+  const { currentLang, getTextDirection } = useLanguage();
   const [count, setCount] = useState(start);
   const isRTL = currentLang === 'he';
   
@@ -45,7 +45,8 @@ const StatItem = ({ start, end, label, animate }: StatItemProps) => {
   }, [animate, animateCounter]);
 
   return (
-    <div className={`text-center p-6 bg-white rounded-lg shadow-md ${isRTL ? 'rtl' : 'ltr'}`}>
+    <div className={`text-center p-6 bg-white rounded-lg shadow-md ${isRTL ? 'rtl' : 'ltr'}`}
+        style={{ direction: getTextDirection() }}>
       <div className="text-4xl font-bold text-primary mb-2 flex items-start justify-center gap-1">
         <span className="text-2xl mt-1">+</span>
         <span>{count.toLocaleString()}</span>
@@ -58,7 +59,7 @@ const StatItem = ({ start, end, label, animate }: StatItemProps) => {
 };
 
 export const Statistics = () => {
-  const { currentLang } = useLanguage();
+  const { currentLang, getTextDirection } = useLanguage();
   const isRTL = currentLang === 'he';
   
   const [statsRef, inView] = useInView({
@@ -68,13 +69,13 @@ export const Statistics = () => {
 
   const stats = {
     en: [
-      { start: 100, end: 500, label: "AI Expert Graduates" },
+      { start: 100, end: 400, label: "AI Expert Graduates" },
       { start: 1000, end: 4500, label: "Hours of Content" },
       { start: 10, end: 23, label: "Completed Cohorts" },
       { start: 10, end: 42, label: "Hiring Companies" }
     ],
     he: [
-      { start: 100, end: 500, label: "בוגרים מפתחי AI מומחים" },
+      { start: 100, end: 400, label: "בוגרים במשרות AI מובילות" },
       { start: 10, end: 23, label: "מחזורים הסתיימו" },
       { start: 10, end: 42, label: "שותפים בתעשייה" },
       { start: 1000, end: 4500, label: "שעות תוכן" },

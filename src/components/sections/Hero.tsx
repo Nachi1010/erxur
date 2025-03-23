@@ -30,7 +30,7 @@ export const Hero = () => {
   };
 
   return (
-    <header className="main-header relative text-center text-white h-[clamp(15vh,45vw,83vh)] overflow-hidden -mt-[clamp(1rem,2vw,2rem)]">
+    <header id="hero" className="main-header relative text-center text-white h-[clamp(15vh,45vw,83vh)] overflow-hidden -mt-[clamp(1rem,2vw,2rem)]">
       <img 
         src={getImagePath("/images/1.jpeg")}
         alt="AI Revolution Background"
@@ -92,10 +92,9 @@ export const Hero = () => {
       </div>
       
       <div className="button-container absolute bottom-[15%] w-full flex justify-center">
-        <a 
-          href="#registration-form"
+        <button 
+          onClick={() => smoothScrollTo('registration-form')}
           className="cta-button"
-          onClick={smoothScrollTo}
           style={{
             background: "linear-gradient(135deg, #2a384d, #445a7a)",
             color: "#ffffff",
@@ -134,7 +133,7 @@ export const Hero = () => {
           }}
         >
           <span className="cta-text">{translations[currentLang].cta}</span>
-        </a>
+        </button>
       </div>
 
       {/* Add Google Fonts */}

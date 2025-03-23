@@ -207,7 +207,7 @@ export const KeyAdvantages = () => {
       {
         icon: AIIcon,
         title: "חברת פיתוח AI מובילה",
-        description: "היו חלק מצוות חלוצי בחזית החדשנות בתחום הבינה המלאכותית"
+        description: "היו חלק מצוותים חלוציים בחזית החדשנות בתחום ה-AI"
       },
       {
         icon: HybridLearningIcon,
@@ -217,27 +217,27 @@ export const KeyAdvantages = () => {
       {
         icon: PedagogicalIcon,
         title: "גישה פדגוגית ייחודית",
-        description: "מתודולוגיית למידה חדשנית המותאמת במיוחד למדעי הבינה המלאכותית"
+        description: "מתודולוגיית למידה חדשנית המותאמת במיוחד למדעי ה-AI"
       },
       {
         icon: GuaranteedJobIcon,
         title: "תעסוקה מובטחת",
-        description: "הצטרפו לצוות שלנו עם סיום מוצלח של התכנית"
+        description: "הצטרפו לצוותים שלנו עם סיום מוצלח של התכנית"
       },
       {
         icon: Award,
-        title: "תעודה יוקרתית",
-        description: "הסמכה מוכרת בתעשייה המוערכת על ידי חברות טכנולוגיה מובילות"
+        title: "הסמכה יוקרתית",
+        description: "תעודה מוכרת ומגובה בידי חברות AI מובילות"
       },
       {
         icon: FileText,
         title: "מחקר עדכני",
-        description: "גישה להתקדמויות האחרונות בתחום הבינה המלאכותית"
+        description: "גישה למעבדה מתקדמת ולמחקר החדשני ביותר בתחום"
       },
       {
         icon: FlexibleScheduleIcon,
         title: "קורסי בוקר/ערב",
-        description: "אפשרויות לימוד גמישות המתאימות לסגנון החיים שלך"
+        description: "אפשרויות לימוד גמישות המתאימות לסגנונות חיים שונים"
       },
       {
         icon: PersonalAdmissionIcon,
@@ -247,7 +247,7 @@ export const KeyAdvantages = () => {
     ]
   };
 
-  const sectionTitle = currentLang === "he" ? "יתרונות מרכזיים" : "Key Advantages";
+  const sectionTitle = currentLang === "he" ? "מה בתוכנית" : "What We Offer";
 
   return (
     <section className="bg-gray-700 py-16">
